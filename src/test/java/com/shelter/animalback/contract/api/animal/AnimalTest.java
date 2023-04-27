@@ -18,6 +18,7 @@ import au.com.dius.pact.provider.junitsupport.State;
 import com.shelter.animalback.domain.Animal;
 import org.mockito.Mockito;
 import java.util.ArrayList;
+publish-contract
 import java.util.List;  
 
 @ExtendWith(MockitoExtension.class)
