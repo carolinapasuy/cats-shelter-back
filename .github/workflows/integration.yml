@@ -1,0 +1,25 @@
+name: cats-shelter-back CI
+on:
+  pull_request:
+    branches: [ "main" ]
+env:
+  PACT_BROKER_BASE_URL: ${{secrets.PACT_BROKER_BASE_URL}}
+  PACT_BROKER_TOKEN: ${{secrets.PACT_BROKER_TOKEN}}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Use JDK 17.X
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'oracle'
+    - name: Gradle Build Action
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 8.0.2
+        arguments: build
+    - name: Run contract tests
+      run: ./gradlew test --tests "com.shelter.animalback.contract.api.animal.AnimalTest"
